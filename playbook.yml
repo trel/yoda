@@ -121,6 +121,7 @@
     - irods_microservices
     - irods_completion
     - irods_rodsadmin
+    - irods_arb
     - role: dms_archive_mock
       when: enable_tape_archive and yoda_environment == "development"
     - role: dms_tape_archive
@@ -143,6 +144,7 @@
     - irods_runtime
     - irods_microservices
     - irods_completion
+    - irods_arb
     - role: irods_gocommands
       when: irods_enable_gocommands
   tags:

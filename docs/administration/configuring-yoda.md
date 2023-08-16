@@ -184,6 +184,19 @@ irods_enable_gocommands              | Whether to install the GoCommands CLI (di
 irods_gocommands_version             | GoCommands version
 irods_gocommands_archive_checksum    | MD5 checksum of the GoCommands archive for the version to be installed
 
+### iRODS automatic resource balancing
+
+These parameters affect whether the Yoda ruleset configures iRODS to automatically stop creating
+new data objects on unixfilesystem resources that have less free storage space than a
+particular threshold.
+
+Variable                             | Description
+-------------------------------------|----------------------------------
+irods_arb_enabled                    | Enable automatic resource balancing (default: false). After switching from enabled to disabled, you would also need to manually clear the thresholds on the provider and consumer using `python /etc/irods/yoda-ruleset/tools/update-ufs-resources.py clear`.
+irods_arb_exempt_resources           | Comma-separated list of unixfilesystem resources that ARB should ignore (default: no resources are ignored)
+irods_arb_min_gb_free                | Minimum absolute amount of free space on unixfilesystem resources in GiB (default: 0)
+irods_arb_min_percent_free           | Minimum relative amount of free space on unixfilesystem resources in % (default: 5)
+
 ### Research module configuration
 
 Variable                       | Description
