@@ -150,13 +150,34 @@
     - 'intake_testset_initial'
 
 
-- name: Ensure Yoda metadata is present for geo publication test
+publication_test_teclab_embargos
+- name: Ensure Yoda publication test metadata-files (for teclab-0 and teclab-1) are present in VM
+  become_user: '{{ irods_service_account }}'
+  become: true
+  ansible.builtin.copy:
+    src: '{{ item }}'
+    dest: '~/testdata/{{ item }}'
+    mode: 0644
+  with_items:
+    - 'publication_test_teclab_embargos'
+
+
+- name: Ensure Yoda metadata is present for geo publication test without embargo
   become_user: '{{ irods_service_account }}'
   become: true
   ansible.builtin.command:
-    iput -f ~/testdata/{{ item }} /{{ irods_zone }}/home/research-teclab-0
+    iput -f ~/testdata/publication_test_teclab_embargos/{{ item }} /{{ irods_zone }}/home/research-teclab-0/yoda-metadata.json
   with_items:
-    - 'yoda-metadata.json'
+    - 'yoda-metadata-teclab-0 EMBARGO NO.json'
+
+
+- name: Ensure Yoda metadata is present for geo publication test under embargo
+  become_user: '{{ irods_service_account }}'
+  become: true
+  ansible.builtin.command:
+    iput -f ~/testdata/publication_test_teclab_embargos/{{ item }} /{{ irods_zone }}/home/research-teclab-1/yoda-metadata.json
+  with_items:
+    - 'yoda-metadata-teclab-1 EMBARGO YES.json'
 
 
 - name: Ensure Yoda licenses directory is present
